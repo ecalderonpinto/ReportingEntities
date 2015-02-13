@@ -1,23 +1,23 @@
-package com.dao.common;
+package com.dao.reportingtool;
 
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.dao.AbstractDAO;
-import com.entity.common.Error;
+import com.entity.reportingtool.ReportDataError;
 
-public class ErrorDAO extends AbstractDAO<Error> {
+public class ReportDataErrorDAO extends AbstractDAO<ReportDataError> {
 
 	private SessionFactory sessionFactory;
 	private HibernateTemplate template;
-
+	
 	@Override
 	protected HibernateTemplate getHibernateTemplate() {
 		return template;
 	}
 
-	public ErrorDAO() {
-		super(Error.class);
+	public ReportDataErrorDAO() {
+		super(ReportDataError.class);
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -26,5 +26,4 @@ public class ErrorDAO extends AbstractDAO<Error> {
 		this.template = new HibernateTemplate(this.sessionFactory);
 		this.template.setCheckWriteOperations(false);
 	}
-
 }

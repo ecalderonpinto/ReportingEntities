@@ -7,8 +7,6 @@ package com.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -27,10 +25,7 @@ public abstract class AbstractDAO<T> {
 	public void create(T entity) {
 		System.out.println("Creating: " + entity.toString());
 
-		// getHibernateTemplate().save(entity);
-		SessionFactory sessionf = getHibernateTemplate().getSessionFactory();
-		Session session = sessionf.getCurrentSession();
-		session.save(entity);
+		getHibernateTemplate().save(entity);
 		// getHibernateTemplate().flush();
 		System.out.println("Created");
 	}
