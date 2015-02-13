@@ -8,13 +8,36 @@
 
 	<context:component-scan base-package="com.dao" />
 	
-	<bean id="errorDao" class="com.dao.common.ErrorDAO">
+	<bean id="errorDAO" class="com.dao.common.ErrorDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="companyDAO" class="com.dao.reportingtool.CompanyDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="departmentDAO" class="com.dao.reportingtool.DepartmentDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="fundDAO" class="com.dao.reportingtool.FundDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="fundGroupDAO" class="com.dao.reportingtool.FundGroupDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportCatalogDAO" class="com.dao.reportingtool.ReportCatalogDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportExecutionDAO" class="com.dao.reportingtool.ReportExecutionDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportFieldDAO" class="com.dao.reportingtool.ReportFieldDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportFieldListDAO" class="com.dao.reportingtool.ReportFieldListDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="fileConfigDao" class="com.dao.loader.FileConfigDAO">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+	
+	
 
 	<!-- org.apache.commons.dbcp.BasicDataSource -->
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->

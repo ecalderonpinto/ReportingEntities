@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.dao.common.ErrorDAO;
 import com.entity.common.Error;
 import com.utilities.hibernate.VersionAuditor;
-import com.entity.InstallLoader;
+import com.entity.InstallEntities;
 
 public class TestHibernate {
 //	private static SessionFactory sessionFactory;
@@ -22,22 +22,22 @@ public class TestHibernate {
 					"applicationContext.xml");
 			
 
-			Error error = new Error();
-			error.setErrorName("ejemplo1");
-			error.setErrorText("ejemplo 1 e e e e ");
-			error.setErrorType("tyoe1");
-			error.setErrorLevel("COMPANY");
-			error.setAuditor(new VersionAuditor("admin"));
-
-			ErrorDAO errorDAO = (ErrorDAO)aplicationContext.getBean("errorDao");
-	
-			errorDAO.create(error);
+//			Error error = new Error();
+//			error.setErrorName("ejemplo1");
+//			error.setErrorText("ejemplo 1 e e e e ");
+//			error.setErrorType("tyoe1");
+//			error.setErrorLevel("COMPANY");
+//			error.setAuditor(new VersionAuditor("admin"));
+//
+//			ErrorDAO errorDAO = (ErrorDAO)aplicationContext.getBean("errorDao");
+//	
+//			errorDAO.create(error);
 			
 			
 			
 			
-			InstallLoader installLoader = new InstallLoader();
-			installLoader.installEntitiesLoader(aplicationContext);
+			InstallEntities installLoader = new InstallEntities();
+			installLoader.installEntitiesFull(aplicationContext);
 			
 			
 			
