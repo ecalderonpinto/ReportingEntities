@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  	
+  	<!--
+    <property name="connection.url">jdbc:mysql://localhost:3306/test_rlt</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password"></property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	-->
+  	
+  	<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    <property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+    <property name="connection.username">reportingtool</property>
+    <property name="connection.password">reportingtool</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+	<property name="hibernate.default_schema">REPORTINGTOOL</property>
+  	
+    <property name="show_sql">true</property>
+  
+    <property name="format_sql">true</property>
+    <property name="hbm2ddl.auto">create</property> 
+    <!--  <property name="hbm2ddl.auto">validate</property> old -->
+  
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+    <property name="current_session_context_class">thread</property>
+    
+    <!-- Mappings -->
+    <mapping class="com.common.hibernate.Error" />
+    
+	<mapping class="com.loader.hibernate.FileColum" />
+	<mapping class="com.loader.hibernate.FileColumList" />
+	<mapping class="com.loader.hibernate.FileConfig" />
+	<mapping class="com.loader.hibernate.LoadError" />
+	<mapping class="com.loader.hibernate.LoadFile" />
+	<mapping class="com.loader.hibernate.LoadRaw" />
+	<mapping class="com.loader.hibernate.LoadRawData" />
+	
+	<mapping class="com.reportingtool.hibernate.Company" />
+	<mapping class="com.reportingtool.hibernate.Fund" />
+	<mapping class="com.reportingtool.hibernate.FundGroup" />
+	<mapping class="com.reportingtool.hibernate.Department" />
+	<mapping class="com.reportingtool.hibernate.ReportCatalog" />
+	<mapping class="com.reportingtool.hibernate.ReportCustom" />
+	<mapping class="com.reportingtool.hibernate.ReportData" />
+	<mapping class="com.reportingtool.hibernate.ReportDataError" />
+	<mapping class="com.reportingtool.hibernate.ReportDataLong" />
+	<mapping class="com.reportingtool.hibernate.ReportError" />
+	<mapping class="com.reportingtool.hibernate.ReportExecution" />
+	<mapping class="com.reportingtool.hibernate.ReportField" />
+	<mapping class="com.reportingtool.hibernate.ReportFieldList" />
+	
+	<mapping class="com.usermanager.hibernate.User" />
+	<mapping class="com.usermanager.hibernate.UserRol" />
+	<mapping class="com.usermanager.hibernate.UserRolPermission" />
+    
+	
+</session-factory>
+</hibernate-configuration>
