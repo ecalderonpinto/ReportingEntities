@@ -39,25 +39,26 @@ public class ReportCatalog implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportCatalog() {
 	}
 
 	public ReportCatalog(long reportCatalogId, String reportVersion,
-			String reportLevel, String reportCatalogName) {
+			String reportLevel, String reportCatalogName,
+			VersionAuditor versionAuditor) {
 		this.id = reportCatalogId;
 		this.reportVersion = reportVersion;
 		this.reportLevel = reportLevel;
 		this.reportCatalogName = reportCatalogName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportCatalog(long reportCatalogId, String reportVersion,
-			String reportLevel, String reportCatalogName,
-			String reportCatalogDesc, Set<ReportCustom> reportCustoms, Set<ReportField> reportFields,
-			Set<ReportExecution> reportExecutions) {
-		this.id = reportCatalogId;
+	public ReportCatalog(String reportVersion, String reportLevel,
+			String reportCatalogName, String reportCatalogDesc,
+			Set<ReportCustom> reportCustoms, Set<ReportField> reportFields,
+			Set<ReportExecution> reportExecutions, VersionAuditor versionAuditor) {
 		this.reportVersion = reportVersion;
 		this.reportLevel = reportLevel;
 		this.reportCatalogName = reportCatalogName;
@@ -65,11 +66,12 @@ public class ReportCatalog implements VersionableAdapter {
 		this.reportCustoms = reportCustoms;
 		this.reportFields = reportFields;
 		this.reportExecutions = reportExecutions;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_CATALOG", sequenceName="SEQ_REPORT_CATALOG", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_CATALOG")
+	@SequenceGenerator(name = "GEN_REPORT_CATALOG", sequenceName = "SEQ_REPORT_CATALOG", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_CATALOG")
 	@Column(name = "REPORT_CATALOG_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -142,19 +144,19 @@ public class ReportCatalog implements VersionableAdapter {
 		this.reportExecutions = reportExecutions;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

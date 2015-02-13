@@ -36,33 +36,35 @@ public class UserRolPermission implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public UserRolPermission() {
 	}
 
 	public UserRolPermission(long rolPermissionId, UserRol userRol,
-			String rolPermissionName, BigDecimal rolPermissionWeight) {
+			String rolPermissionName, BigDecimal rolPermissionWeight,
+			VersionAuditor versionAuditor) {
 		this.id = rolPermissionId;
 		this.userRol = userRol;
 		this.rolPermissionName = rolPermissionName;
 		this.rolPermissionWeight = rolPermissionWeight;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public UserRolPermission(long rolPermissionId, UserRol userRol,
-			String rolPermissionName, String rolPermissionDesc,
-			BigDecimal rolPermissionWeight) {
-		this.id = rolPermissionId;
+	public UserRolPermission(UserRol userRol, String rolPermissionName,
+			String rolPermissionDesc, BigDecimal rolPermissionWeight,
+			VersionAuditor versionAuditor) {
 		this.userRol = userRol;
 		this.rolPermissionName = rolPermissionName;
 		this.rolPermissionDesc = rolPermissionDesc;
 		this.rolPermissionWeight = rolPermissionWeight;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_USER_ROL_PERMISSION", sequenceName="SEQ_USER_ROL_PERMISSION", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_USER_ROL_PERMISSION")
+	@SequenceGenerator(name = "GEN_USER_ROL_PERMISSION", sequenceName = "SEQ_USER_ROL_PERMISSION", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_USER_ROL_PERMISSION")
 	@Column(name = "ROL_PERMISSION_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -109,19 +111,19 @@ public class UserRolPermission implements VersionableAdapter {
 		this.rolPermissionWeight = rolPermissionWeight;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

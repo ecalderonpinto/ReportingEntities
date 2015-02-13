@@ -45,31 +45,33 @@ public class Error implements VersionableAdapter {
 	private String errorLevel;
 	private String errorText;
 	private String errorAction;
-	private Set<ReportDataError> reportDataErrors = new HashSet<ReportDataError>(0);
+	private Set<ReportDataError> reportDataErrors = new HashSet<ReportDataError>(
+			0);
 	private Set<LoadError> loadErrors = new HashSet<LoadError>(0);
 	private Set<ReportError> reportErrors = new HashSet<ReportError>(0);
 
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public Error() {
 	}
 
 	public Error(long errorId, String errorType, String errorName,
-			String errorLevel) {
+			String errorLevel, VersionAuditor versionAuditor) {
 		this.id = errorId;
 		this.errorType = errorType;
 		this.errorName = errorName;
 		this.errorLevel = errorLevel;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public Error(long errorId, String errorType, String errorName,
-			String errorLevel, String errorText, String errorAction,
-			Set<ReportDataError> reportDataErrors, Set<LoadError> loadErrors, Set<ReportError> reportErrors) {
-		this.id = errorId;
+	public Error(String errorType, String errorName, String errorLevel,
+			String errorText, String errorAction,
+			Set<ReportDataError> reportDataErrors, Set<LoadError> loadErrors,
+			Set<ReportError> reportErrors, VersionAuditor versionAuditor) {
 		this.errorType = errorType;
 		this.errorName = errorName;
 		this.errorLevel = errorLevel;
@@ -78,11 +80,12 @@ public class Error implements VersionableAdapter {
 		this.reportDataErrors = reportDataErrors;
 		this.loadErrors = loadErrors;
 		this.reportErrors = reportErrors;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_ERROR", sequenceName="SEQ_ERROR", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_ERROR")
+	@SequenceGenerator(name = "GEN_ERROR", sequenceName = "SEQ_ERROR", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_ERROR")
 	@Column(name = "ERROR_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -138,7 +141,7 @@ public class Error implements VersionableAdapter {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="REPORT_DATA_ERROR_ID")
+	@JoinColumn(name = "REPORT_DATA_ERROR_ID")
 	public Set<ReportDataError> getReportDataErrors() {
 		return this.reportDataErrors;
 	}
@@ -147,7 +150,7 @@ public class Error implements VersionableAdapter {
 		this.reportDataErrors = reportDataErrors;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="error")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "error")
 	public Set<LoadError> getLoadErrors() {
 		return this.loadErrors;
 	}
@@ -156,7 +159,7 @@ public class Error implements VersionableAdapter {
 		this.loadErrors = loadErrors;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="error")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "error")
 	public Set<ReportError> getReportErrors() {
 		return this.reportErrors;
 	}
@@ -164,20 +167,20 @@ public class Error implements VersionableAdapter {
 	public void setReportErrors(Set<ReportError> reportErrors) {
 		this.reportErrors = reportErrors;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}
@@ -185,6 +188,5 @@ public class Error implements VersionableAdapter {
 	public void setAuditor(VersionAuditor _auditor) {
 		this.versionAuditor = _auditor;
 	}
-
 
 }

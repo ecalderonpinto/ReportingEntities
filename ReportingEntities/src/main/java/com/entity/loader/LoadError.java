@@ -35,32 +35,33 @@ public class LoadError implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public LoadError() {
 	}
 
 	public LoadError(long loadErrorId, Error error, LoadFile loadFile,
-			String loadErrorType) {
+			String loadErrorType, VersionAuditor versionAuditor) {
 		this.id = loadErrorId;
 		this.error = error;
 		this.loadFile = loadFile;
 		this.loadErrorType = loadErrorType;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public LoadError(long loadErrorId, Error error, LoadFile loadFile,
-			String loadErrorType, String loadErrorText) {
-		this.id = loadErrorId;
+	public LoadError(Error error, LoadFile loadFile, String loadErrorType,
+			String loadErrorText, VersionAuditor versionAuditor) {
 		this.error = error;
 		this.loadFile = loadFile;
 		this.loadErrorType = loadErrorType;
 		this.loadErrorText = loadErrorText;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_LOAD_ERROR", sequenceName="SEQ_LOAD_ERROR", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_LOAD_ERROR")
+	@SequenceGenerator(name = "GEN_LOAD_ERROR", sequenceName = "SEQ_LOAD_ERROR", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_LOAD_ERROR")
 	@Column(name = "LOAD_ERROR_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -107,20 +108,20 @@ public class LoadError implements VersionableAdapter {
 	public void setLoadErrorText(String loadErrorText) {
 		this.loadErrorText = loadErrorText;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

@@ -38,32 +38,35 @@ public class LoadRawData implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public LoadRawData() {
 	}
 
 	public LoadRawData(long loadRawDataId, FileColum fileColum,
-			LoadRaw loadRaw, String loadRawDataType) {
+			LoadRaw loadRaw, String loadRawDataType,
+			VersionAuditor versionAuditor) {
 		this.id = loadRawDataId;
 		this.fileColum = fileColum;
 		this.loadRaw = loadRaw;
 		this.loadRawDataType = loadRawDataType;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public LoadRawData(long loadRawDataId, FileColum fileColum,
-			LoadRaw loadRaw, String loadRawDataText, String loadRawDataType) {
-		this.id = loadRawDataId;
+	public LoadRawData(FileColum fileColum, LoadRaw loadRaw,
+			String loadRawDataText, String loadRawDataType,
+			VersionAuditor versionAuditor) {
 		this.fileColum = fileColum;
 		this.loadRaw = loadRaw;
 		this.loadRawDataText = loadRawDataText;
 		this.loadRawDataType = loadRawDataType;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_LOAD_RAW_DATA", sequenceName="SEQ_LOAD_RAW_DATA", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_LOAD_RAW_DATA")
+	@SequenceGenerator(name = "GEN_LOAD_RAW_DATA", sequenceName = "SEQ_LOAD_RAW_DATA", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_LOAD_RAW_DATA")
 	@Column(name = "LOAD_RAW_DATA_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -111,19 +114,19 @@ public class LoadRawData implements VersionableAdapter {
 		this.loadRawDataType = loadRawDataType;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

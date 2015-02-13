@@ -11,6 +11,10 @@
 	<bean id="errorDao" class="com.dao.common.ErrorDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	<bean id="fileConfigDao" class="com.dao.loader.FileConfigDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 
 	<!-- org.apache.commons.dbcp.BasicDataSource -->
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->

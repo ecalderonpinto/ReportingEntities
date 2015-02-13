@@ -34,30 +34,32 @@ public class FileColumList implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public FileColumList() {
 	}
 
-	public FileColumList(long fileColumListId, FileColum fileColum) {
+	public FileColumList(long fileColumListId, FileColum fileColum,
+			VersionAuditor versionAuditor) {
 		this.id = fileColumListId;
 		this.fileColum = fileColum;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public FileColumList(long fileColumListId, FileColum fileColum,
-			String fileColumListType, String fileColumListOrig,
-			String fileColumListDest) {
-		this.id = fileColumListId;
+	public FileColumList(FileColum fileColum, String fileColumListType,
+			String fileColumListOrig, String fileColumListDest,
+			VersionAuditor versionAuditor) {
 		this.fileColum = fileColum;
 		this.fileColumListType = fileColumListType;
 		this.fileColumListOrig = fileColumListOrig;
 		this.fileColumListDest = fileColumListDest;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_FILE_COLUM_LIST", sequenceName="SEQ_FILE_COLUM_LIST", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_FILE_COLUM_LIST")
+	@SequenceGenerator(name = "GEN_FILE_COLUM_LIST", sequenceName = "SEQ_FILE_COLUM_LIST", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_FILE_COLUM_LIST")
 	@Column(name = "FILE_COLUM_LIST_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -103,20 +105,20 @@ public class FileColumList implements VersionableAdapter {
 	public void setFileColumListDest(String fileColumListDest) {
 		this.fileColumListDest = fileColumListDest;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

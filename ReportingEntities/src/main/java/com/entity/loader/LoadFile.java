@@ -51,22 +51,23 @@ public class LoadFile implements VersionableAdapter {
 	}
 
 	public LoadFile(long loadFileId, Department department,
-			FileConfig fileConfig) {
+			FileConfig fileConfig, VersionAuditor versionAuditor) {
 		this.id = loadFileId;
 		this.department = department;
 		this.fileConfig = fileConfig;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public LoadFile(long loadFileId, Department department,
+	public LoadFile(Department department,
 			FileConfig fileConfig, Date loadFileDate, String loadFileName,
-			Set<LoadError> loadErrors, Set<LoadRaw> loadRaws) {
-		this.id = loadFileId;
+			Set<LoadError> loadErrors, Set<LoadRaw> loadRaws, VersionAuditor versionAuditor) {
 		this.department = department;
 		this.fileConfig = fileConfig;
 		this.loadFileDate = loadFileDate;
 		this.loadFileName = loadFileName;
 		this.loadErrors = loadErrors;
 		this.loadRaws = loadRaws;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id

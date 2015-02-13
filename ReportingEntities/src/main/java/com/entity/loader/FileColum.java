@@ -45,23 +45,25 @@ public class FileColum implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public FileColum() {
 	}
 
-	public FileColum(long fileColumId, FileConfig fileConfig, String columType) {
+	public FileColum(long fileColumId, FileConfig fileConfig, String columType,
+			VersionAuditor versionAuditor) {
 		this.id = fileColumId;
 		this.fileConfig = fileConfig;
 		this.columType = columType;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public FileColum(long fileColumId, ReportField reportField,
-			FileConfig fileConfig, String columType, BigDecimal columNumber,
-			String columName, String columDesc, String columFormat,
-			Set<LoadRawData> loadRawDatas, Set<FileColumList> fileColumLists) {
-		this.id = fileColumId;
+	public FileColum(ReportField reportField, FileConfig fileConfig,
+			String columType, BigDecimal columNumber, String columName,
+			String columDesc, String columFormat,
+			Set<LoadRawData> loadRawDatas, Set<FileColumList> fileColumLists,
+			VersionAuditor versionAuditor) {
 		this.reportField = reportField;
 		this.fileConfig = fileConfig;
 		this.columType = columType;
@@ -71,11 +73,12 @@ public class FileColum implements VersionableAdapter {
 		this.columFormat = columFormat;
 		this.loadRawDatas = loadRawDatas;
 		this.fileColumLists = fileColumLists;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_FILE_COLUM", sequenceName="SEQ_FILE_COLUM", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_FILE_COLUM")
+	@SequenceGenerator(name = "GEN_FILE_COLUM", sequenceName = "SEQ_FILE_COLUM", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_FILE_COLUM")
 	@Column(name = "FILE_COLUM_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -167,20 +170,20 @@ public class FileColum implements VersionableAdapter {
 	public void setFileColumLists(Set<FileColumList> fileColumLists) {
 		this.fileColumLists = fileColumLists;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

@@ -34,30 +34,32 @@ public class FundGroup implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public FundGroup() {
 	}
 
-	public FundGroup(long fundGroupId, Fund fund, Department department) {
+	public FundGroup(long fundGroupId, Fund fund, Department department,
+			VersionAuditor versionAuditor) {
 		this.id = fundGroupId;
 		this.fund = fund;
 		this.department = department;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public FundGroup(long fundGroupId, Fund fund, Department department,
-			String fundGroupCode, String fundGroupDesc) {
-		this.id = fundGroupId;
+	public FundGroup(Fund fund, Department department, String fundGroupCode,
+			String fundGroupDesc, VersionAuditor versionAuditor) {
 		this.fund = fund;
 		this.department = department;
 		this.fundGroupCode = fundGroupCode;
 		this.fundGroupDesc = fundGroupDesc;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_FUND_GROUP", sequenceName="SEQ_FUND_GROUP", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_FUND_GROUP")
+	@SequenceGenerator(name = "GEN_FUND_GROUP", sequenceName = "SEQ_FUND_GROUP", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_FUND_GROUP")
 	@Column(name = "FUND_GROUP_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -104,20 +106,20 @@ public class FundGroup implements VersionableAdapter {
 	public void setFundGroupDesc(String fundGroupDesc) {
 		this.fundGroupDesc = fundGroupDesc;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

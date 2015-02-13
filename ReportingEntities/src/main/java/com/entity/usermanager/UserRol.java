@@ -38,31 +38,34 @@ public class UserRol implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public UserRol() {
 	}
 
-	public UserRol(long rolId, String rolName, BigDecimal rolWeight) {
+	public UserRol(long rolId, String rolName, BigDecimal rolWeight,
+			VersionAuditor versionAuditor) {
 		this.id = rolId;
 		this.rolName = rolName;
 		this.rolWeight = rolWeight;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public UserRol(long rolId, String rolName, String rolDesc,
-			BigDecimal rolWeight, Set<UserRolPermission> userRolPermissions, Set<User> users) {
-		this.id = rolId;
+	public UserRol(String rolName, String rolDesc, BigDecimal rolWeight,
+			Set<UserRolPermission> userRolPermissions, Set<User> users,
+			VersionAuditor versionAuditor) {
 		this.rolName = rolName;
 		this.rolDesc = rolDesc;
 		this.rolWeight = rolWeight;
 		this.userRolPermissions = userRolPermissions;
 		this.users = users;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_USER_ROL", sequenceName="SEQ_USER_ROL", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_USER_ROL")
+	@SequenceGenerator(name = "GEN_USER_ROL", sequenceName = "SEQ_USER_ROL", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_USER_ROL")
 	@Column(name = "ROL_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -116,20 +119,20 @@ public class UserRol implements VersionableAdapter {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

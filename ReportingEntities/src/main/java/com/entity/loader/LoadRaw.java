@@ -48,21 +48,22 @@ public class LoadRaw implements VersionableAdapter {
 	public LoadRaw() {
 	}
 
-	public LoadRaw(long loadRawId, LoadFile loadFile) {
+	public LoadRaw(long loadRawId, LoadFile loadFile, VersionAuditor versionAuditor) {
 		this.id = loadRawId;
 		this.loadFile = loadFile;
+		this.versionAuditor = versionAuditor;
 	}
-
-	public LoadRaw(long loadRawId, LoadFile loadFile,
+	
+	public LoadRaw(LoadFile loadFile,
 			BigDecimal loadLineNumber, String loadLineType, Blob loadRawBlob,
-			String loadError, Set<LoadRawData> loadRawDatas) {
-		this.id = loadRawId;
+			String loadError, Set<LoadRawData> loadRawDatas, VersionAuditor versionAuditor) {
 		this.loadFile = loadFile;
 		this.loadLineNumber = loadLineNumber;
 		this.loadLineType = loadLineType;
 		this.loadRawBlob = loadRawBlob;
 		this.loadError = loadError;
 		this.loadRawDatas = loadRawDatas;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id

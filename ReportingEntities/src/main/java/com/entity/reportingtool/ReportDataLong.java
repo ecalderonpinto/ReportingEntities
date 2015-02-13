@@ -35,27 +35,29 @@ public class ReportDataLong implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportDataLong() {
 	}
 
-	public ReportDataLong(long reportDataLongId, Blob reportDataBlob) {
+	public ReportDataLong(long reportDataLongId, Blob reportDataBlob,
+			VersionAuditor versionAuditor) {
 		this.id = reportDataLongId;
 		this.reportDataBlob = reportDataBlob;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportDataLong(long reportDataLongId, Blob reportDataBlob,
-			Set<ReportData> reportDatas) {
-		this.id = reportDataLongId;
+	public ReportDataLong(Blob reportDataBlob, Set<ReportData> reportDatas,
+			VersionAuditor versionAuditor) {
 		this.reportDataBlob = reportDataBlob;
 		this.reportDatas = reportDatas;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_DATA_LONG", sequenceName="SEQ_REPORT_DATA_LONG", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_DATA_LONG")
+	@SequenceGenerator(name = "GEN_REPORT_DATA_LONG", sequenceName = "SEQ_REPORT_DATA_LONG", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_DATA_LONG")
 	@Column(name = "REPORT_DATA_LONG_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -82,20 +84,20 @@ public class ReportDataLong implements VersionableAdapter {
 	public void setReportDatas(Set<ReportData> reportDatas) {
 		this.reportDatas = reportDatas;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

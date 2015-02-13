@@ -35,33 +35,35 @@ public class ReportError implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportError() {
 	}
 
 	public ReportError(long reportErrorId, Error error,
-			ReportExecution reportExecution, String reportErrorType) {
+			ReportExecution reportExecution, String reportErrorType,
+			VersionAuditor versionAuditor) {
 		this.id = reportErrorId;
 		this.error = error;
 		this.reportExecution = reportExecution;
 		this.reportErrorType = reportErrorType;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportError(long reportErrorId, Error error,
-			ReportExecution reportExecution, String reportErrorType,
-			String reportErrorText) {
-		this.id = reportErrorId;
+	public ReportError(Error error, ReportExecution reportExecution,
+			String reportErrorType, String reportErrorText,
+			VersionAuditor versionAuditor) {
 		this.error = error;
 		this.reportExecution = reportExecution;
 		this.reportErrorType = reportErrorType;
 		this.reportErrorText = reportErrorText;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_ERROR", sequenceName="SEQ_REPORT_ERROR", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_ERROR")
+	@SequenceGenerator(name = "GEN_REPORT_ERROR", sequenceName = "SEQ_REPORT_ERROR", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_ERROR")
 	@Column(name = "REPORT_ERROR_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -108,20 +110,20 @@ public class ReportError implements VersionableAdapter {
 	public void setReportErrorText(String reportErrorText) {
 		this.reportErrorText = reportErrorText;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

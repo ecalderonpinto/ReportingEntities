@@ -32,29 +32,31 @@ public class ReportFieldList implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportFieldList() {
 	}
 
-	public ReportFieldList(long reportFieldListId, String reportFieldListType) {
+	public ReportFieldList(long reportFieldListId, String reportFieldListType,
+			VersionAuditor versionAuditor) {
 		this.id = reportFieldListId;
 		this.reportFieldListType = reportFieldListType;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportFieldList(long reportFieldListId,
-			String reportFieldListType, String reportFieldListValue,
-			String reportFieldListDesc) {
-		this.id = reportFieldListId;
+	public ReportFieldList(String reportFieldListType,
+			String reportFieldListValue, String reportFieldListDesc,
+			VersionAuditor versionAuditor) {
 		this.reportFieldListType = reportFieldListType;
 		this.reportFieldListValue = reportFieldListValue;
 		this.reportFieldListDesc = reportFieldListDesc;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_FIELD_LIST", sequenceName="SEQ_REPORT_FIELD_LIST", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_FIELD_LIST")
+	@SequenceGenerator(name = "GEN_REPORT_FIELD_LIST", sequenceName = "SEQ_REPORT_FIELD_LIST", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_FIELD_LIST")
 	@Column(name = "REPORT_FIELD_LIST_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -90,20 +92,20 @@ public class ReportFieldList implements VersionableAdapter {
 	public void setReportFieldListDesc(String reportFieldListDesc) {
 		this.reportFieldListDesc = reportFieldListDesc;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

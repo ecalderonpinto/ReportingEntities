@@ -46,27 +46,28 @@ public class ReportField implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportField() {
 	}
 
 	public ReportField(long reportFieldId, ReportCatalog reportCatalog,
-			String reportFieldType, String reportFieldName) {
+			String reportFieldType, String reportFieldName,
+			VersionAuditor versionAuditor) {
 		this.id = reportFieldId;
 		this.reportCatalog = reportCatalog;
 		this.reportFieldType = reportFieldType;
 		this.reportFieldName = reportFieldName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportField(long reportFieldId, ReportCatalog reportCatalog,
-			String reportFieldType, String reportFieldName,
-			String reportFieldFormat, String reportFieldDesc,
-			String reportFieldSection, String reportFieldMask,
-			String reportFieldVersion, Set<FileColum> fileColums, Set<ReportData> reportDatas,
-			Set<ReportCustom> reportCustoms) {
-		this.id = reportFieldId;
+	public ReportField(ReportCatalog reportCatalog, String reportFieldType,
+			String reportFieldName, String reportFieldFormat,
+			String reportFieldDesc, String reportFieldSection,
+			String reportFieldMask, String reportFieldVersion,
+			Set<FileColum> fileColums, Set<ReportData> reportDatas,
+			Set<ReportCustom> reportCustoms, VersionAuditor versionAuditor) {
 		this.reportCatalog = reportCatalog;
 		this.reportFieldType = reportFieldType;
 		this.reportFieldName = reportFieldName;
@@ -78,11 +79,12 @@ public class ReportField implements VersionableAdapter {
 		this.fileColums = fileColums;
 		this.reportDatas = reportDatas;
 		this.reportCustoms = reportCustoms;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_FIELD", sequenceName="SEQ_REPORT_FIELD", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_FIELD")
+	@SequenceGenerator(name = "GEN_REPORT_FIELD", sequenceName = "SEQ_REPORT_FIELD", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_FIELD")
 	@Column(name = "REPORT_FIELD_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -191,20 +193,20 @@ public class ReportField implements VersionableAdapter {
 	public void setReportCustoms(Set<ReportCustom> reportCustoms) {
 		this.reportCustoms = reportCustoms;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

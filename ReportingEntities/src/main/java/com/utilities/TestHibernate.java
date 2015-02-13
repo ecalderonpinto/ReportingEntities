@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.dao.common.ErrorDAO;
 import com.entity.common.Error;
 import com.utilities.hibernate.VersionAuditor;
+import com.entity.InstallLoader;
 
 public class TestHibernate {
 //	private static SessionFactory sessionFactory;
@@ -16,13 +17,6 @@ public class TestHibernate {
 
 		// TODO Auto-generated method stub
 		try {
-			// File hibernateFile = new File ("hibernate.cfg.xml");
-			// configuration = new Configuration();
-			// configuration.configure(hibernateFile);
-			// serviceRegistry = new StandardServiceRegistryBuilder()
-			// .applySettings(configuration.getProperties()).build();
-			// sessionFactory =
-			// configuration.buildSessionFactory(serviceRegistry);
 
 			ApplicationContext aplicationContext = new ClassPathXmlApplicationContext(
 					"applicationContext.xml");
@@ -38,6 +32,15 @@ public class TestHibernate {
 			ErrorDAO errorDAO = (ErrorDAO)aplicationContext.getBean("errorDao");
 	
 			errorDAO.create(error);
+			
+			
+			
+			
+			InstallLoader installLoader = new InstallLoader();
+			installLoader.installEntitiesLoader(aplicationContext);
+			
+			
+			
 
 		} catch (Throwable ex) {
 			System.err

@@ -35,33 +35,34 @@ public class ReportCustom implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportCustom() {
 	}
 
 	public ReportCustom(long reportCustomId, Company company,
-			String reportCustomName) {
+			String reportCustomName, VersionAuditor versionAuditor) {
 		this.id = reportCustomId;
 		this.company = company;
 		this.reportCustomName = reportCustomName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportCustom(long reportCustomId, ReportCatalog reportCatalog,
-			Company company, ReportField reportField, String reportCustomName,
-			String reportCustomPath) {
-		this.id = reportCustomId;
+	public ReportCustom(ReportCatalog reportCatalog, Company company,
+			ReportField reportField, String reportCustomName,
+			String reportCustomPath, VersionAuditor versionAuditor) {
 		this.reportCatalog = reportCatalog;
 		this.company = company;
 		this.reportField = reportField;
 		this.reportCustomName = reportCustomName;
 		this.reportCustomPath = reportCustomPath;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_CUSTOM", sequenceName="SEQ_REPORT_CUSTOM", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_CUSTOM")
+	@SequenceGenerator(name = "GEN_REPORT_CUSTOM", sequenceName = "SEQ_REPORT_CUSTOM", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_CUSTOM")
 	@Column(name = "REPORT_CUSTOM_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -119,19 +120,19 @@ public class ReportCustom implements VersionableAdapter {
 		this.reportCustomPath = reportCustomPath;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

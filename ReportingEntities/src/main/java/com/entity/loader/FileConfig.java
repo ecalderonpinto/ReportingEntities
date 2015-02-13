@@ -44,24 +44,24 @@ public class FileConfig implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public FileConfig() {
 	}
 
 	public FileConfig(long fileConfigId, String fileType,
-			String fileConfigName) {
+			String fileConfigName, VersionAuditor versionAuditor) {
 		this.id = fileConfigId;
 		this.fileType = fileType;
 		this.fileConfigName = fileConfigName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public FileConfig(long fileConfigId, Department department,
-			String fileType, String fileConfigName, String fileSeparator,
-			String fileFormatLine, String fileCron, String filePath,
-			Set<LoadFile> loadFiles, Set<FileColum> fileColums) {
-		this.id = fileConfigId;
+	public FileConfig(Department department, String fileType,
+			String fileConfigName, String fileSeparator, String fileFormatLine,
+			String fileCron, String filePath, Set<LoadFile> loadFiles,
+			Set<FileColum> fileColums, VersionAuditor versionAuditor) {
 		this.department = department;
 		this.fileType = fileType;
 		this.fileConfigName = fileConfigName;
@@ -71,11 +71,12 @@ public class FileConfig implements VersionableAdapter {
 		this.filePath = filePath;
 		this.loadFiles = loadFiles;
 		this.fileColums = fileColums;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_FILE_CONFIG", sequenceName="SEQ_FILE_CONFIG", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_FILE_CONFIG")
+	@SequenceGenerator(name = "GEN_FILE_CONFIG", sequenceName = "SEQ_FILE_CONFIG", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_FILE_CONFIG")
 	@Column(name = "FILE_CONFIG_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -166,20 +167,20 @@ public class FileConfig implements VersionableAdapter {
 	public void setFileColums(Set<FileColum> fileColums) {
 		this.fileColums = fileColums;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

@@ -42,22 +42,24 @@ public class Fund implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public Fund() {
 	}
 
-	public Fund(long fundId, Company company, String fundName) {
+	public Fund(long fundId, Company company, String fundName,
+			VersionAuditor versionAuditor) {
 		this.id = fundId;
 		this.company = company;
 		this.fundName = fundName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public Fund(long fundId, Company company, String fundName,
-			String fundIsin, String fundCode, String fundDesc,
-			String fundClass, Set<FundGroup> fundGroups, Set<ReportExecution> reportExecutions) {
-		this.id = fundId;
+	public Fund(Company company, String fundName, String fundIsin,
+			String fundCode, String fundDesc, String fundClass,
+			Set<FundGroup> fundGroups, Set<ReportExecution> reportExecutions,
+			VersionAuditor versionAuditor) {
 		this.company = company;
 		this.fundName = fundName;
 		this.fundIsin = fundIsin;
@@ -66,11 +68,12 @@ public class Fund implements VersionableAdapter {
 		this.fundClass = fundClass;
 		this.fundGroups = fundGroups;
 		this.reportExecutions = reportExecutions;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_FUND", sequenceName="SEQ_FUND", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_FUND")
+	@SequenceGenerator(name = "GEN_FUND", sequenceName = "SEQ_FUND", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_FUND")
 	@Column(name = "FUND_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -152,20 +155,20 @@ public class Fund implements VersionableAdapter {
 	public void setReportExecutions(Set<ReportExecution> reportExecutions) {
 		this.reportExecutions = reportExecutions;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

@@ -40,21 +40,24 @@ public class Company implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public Company() {
 	}
 
-	public Company(long companyId, String companyName) {
+	public Company(long companyId, String companyName,
+			VersionAuditor versionAuditor) {
 		this.id = companyId;
 		this.companyName = companyName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public Company(long companyId, String companyName, String companyCountry,
-			String companyCode, String companyDesc, Set<ReportExecution> reportExecutions,
-			Set<Fund> funds, Set<Department> departments, Set<ReportCustom> reportCustoms) {
-		this.id = companyId;
+	public Company(String companyName, String companyCountry,
+			String companyCode, String companyDesc,
+			Set<ReportExecution> reportExecutions, Set<Fund> funds,
+			Set<Department> departments, Set<ReportCustom> reportCustoms,
+			VersionAuditor versionAuditor) {
 		this.companyName = companyName;
 		this.companyCountry = companyCountry;
 		this.companyCode = companyCode;
@@ -63,11 +66,12 @@ public class Company implements VersionableAdapter {
 		this.funds = funds;
 		this.departments = departments;
 		this.reportCustoms = reportCustoms;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_COMPANY", sequenceName="SEQ_COMPANY", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_COMPANY")
+	@SequenceGenerator(name = "GEN_COMPANY", sequenceName = "SEQ_COMPANY", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_COMPANY")
 	@Column(name = "COMPANY_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -148,20 +152,20 @@ public class Company implements VersionableAdapter {
 	public void setReportCustoms(Set<ReportCustom> reportCustoms) {
 		this.reportCustoms = reportCustoms;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

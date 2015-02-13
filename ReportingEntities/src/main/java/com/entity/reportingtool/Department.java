@@ -44,24 +44,25 @@ public class Department implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public Department() {
 	}
 
 	public Department(long departmentId, Company company,
-			String departmentName) {
+			String departmentName, VersionAuditor versionAuditor) {
 		this.id = departmentId;
 		this.company = company;
 		this.departmentName = departmentName;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public Department(long departmentId, Company company,
-			String departmentName, String departmentCode,
-			String departmentDesc, String departmentCountry, Set<LoadFile> loadFiles,
-			Set<FundGroup> fundGroups, Set<FileConfig> fileConfigs) {
-		this.id = departmentId;
+	public Department(Company company, String departmentName,
+			String departmentCode, String departmentDesc,
+			String departmentCountry, Set<LoadFile> loadFiles,
+			Set<FundGroup> fundGroups, Set<FileConfig> fileConfigs,
+			VersionAuditor versionAuditor) {
 		this.company = company;
 		this.departmentName = departmentName;
 		this.departmentCode = departmentCode;
@@ -70,11 +71,12 @@ public class Department implements VersionableAdapter {
 		this.loadFiles = loadFiles;
 		this.fundGroups = fundGroups;
 		this.fileConfigs = fileConfigs;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_DEPARTMENT", sequenceName="SEQ_DEPARTMENT", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_DEPARTMENT")
+	@SequenceGenerator(name = "GEN_DEPARTMENT", sequenceName = "SEQ_DEPARTMENT", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_DEPARTMENT")
 	@Column(name = "DEPARTMENT_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -157,19 +159,19 @@ public class Department implements VersionableAdapter {
 		this.fileConfigs = fileConfigs;
 	}
 
-	
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

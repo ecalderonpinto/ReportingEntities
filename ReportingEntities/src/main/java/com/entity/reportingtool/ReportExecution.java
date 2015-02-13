@@ -57,31 +57,31 @@ public class ReportExecution implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportExecution() {
 	}
 
-	public ReportExecution(long reportExecutionId,
-			ReportCatalog reportCatalog, Company company,
-			String reportPeriodType, String reportPeriodYear) {
+	public ReportExecution(long reportExecutionId, ReportCatalog reportCatalog,
+			Company company, String reportPeriodType, String reportPeriodYear,
+			VersionAuditor versionAuditor) {
 		this.id = reportExecutionId;
 		this.reportCatalog = reportCatalog;
 		this.company = company;
 		this.reportPeriodType = reportPeriodType;
 		this.reportPeriodYear = reportPeriodYear;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportExecution(long reportExecutionId,
-			ReportCatalog reportCatalog, Company company, Fund fund,
-			String reportPeriodType, String reportPeriodYear,
+	public ReportExecution(ReportCatalog reportCatalog, Company company,
+			Fund fund, String reportPeriodType, String reportPeriodYear,
 			Date reportDueDate, Date reportStartDate, String reportStatus,
 			String signedUserFlag, Date signedUserDate, String signedUserId,
 			String signedSuperFlag, Date signedSuperDate, String signedSuperId,
 			String signedSentFlag, Date signedSentDate, String signedSentId,
-			String reportLocked, Set<ReportData> reportDatas, Set<ReportError> reportErrors) {
-		this.id = reportExecutionId;
+			String reportLocked, Set<ReportData> reportDatas,
+			Set<ReportError> reportErrors, VersionAuditor versionAuditor) {
 		this.reportCatalog = reportCatalog;
 		this.company = company;
 		this.fund = fund;
@@ -102,11 +102,12 @@ public class ReportExecution implements VersionableAdapter {
 		this.reportLocked = reportLocked;
 		this.reportDatas = reportDatas;
 		this.reportErrors = reportErrors;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_EXECUTION", sequenceName="SEQ_REPORT_EXECUTION", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_EXECUTION")
+	@SequenceGenerator(name = "GEN_REPORT_EXECUTION", sequenceName = "SEQ_REPORT_EXECUTION", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_EXECUTION")
 	@Column(name = "REPORT_EXECUTION_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -303,20 +304,20 @@ public class ReportExecution implements VersionableAdapter {
 	public void setReportErrors(Set<ReportError> reportErrors) {
 		this.reportErrors = reportErrors;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

@@ -46,24 +46,25 @@ public class ReportData implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public ReportData() {
 	}
 
 	public ReportData(long reportDataId, ReportField reportField,
-			ReportExecution reportExecution) {
+			ReportExecution reportExecution, VersionAuditor versionAuditor) {
 		this.id = reportDataId;
 		this.reportField = reportField;
 		this.reportExecution = reportExecution;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public ReportData(long reportDataId, ReportDataLong reportDataLong,
-			ReportField reportField, ReportExecution reportExecution,
-			Date reportDataDate, BigDecimal reportDataNumber,
-			String reportDataText, String reportDataLock, Set<ReportDataError> reportDataErrors) {
-		this.id = reportDataId;
+	public ReportData(ReportDataLong reportDataLong, ReportField reportField,
+			ReportExecution reportExecution, Date reportDataDate,
+			BigDecimal reportDataNumber, String reportDataText,
+			String reportDataLock, Set<ReportDataError> reportDataErrors,
+			VersionAuditor versionAuditor) {
 		this.reportDataLong = reportDataLong;
 		this.reportField = reportField;
 		this.reportExecution = reportExecution;
@@ -72,11 +73,12 @@ public class ReportData implements VersionableAdapter {
 		this.reportDataText = reportDataText;
 		this.reportDataLock = reportDataLock;
 		this.reportDataErrors = reportDataErrors;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_REPORT_DATA", sequenceName="SEQ_REPORT_DATA", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_REPORT_DATA")
+	@SequenceGenerator(name = "GEN_REPORT_DATA", sequenceName = "SEQ_REPORT_DATA", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_REPORT_DATA")
 	@Column(name = "REPORT_DATA_ID", unique = true, nullable = false, length = 10)
 	public long getId() {
 		return this.id;
@@ -161,20 +163,20 @@ public class ReportData implements VersionableAdapter {
 	public void setReportDataErrors(Set<ReportDataError> reportDataErrors) {
 		this.reportDataErrors = reportDataErrors;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}

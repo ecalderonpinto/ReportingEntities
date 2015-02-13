@@ -39,32 +39,34 @@ public class User implements VersionableAdapter {
 	@Embedded
 	private VersionAuditor versionAuditor;
 	@Version
-	@Column(name="VERSION", nullable=false)
+	@Column(name = "VERSION", nullable = false)
 	int version;
-	
+
 	public User() {
 	}
 
-	public User(long userId, UserRol userRol, String userName, String userPass) {
+	public User(long userId, UserRol userRol, String userName, String userPass,
+			VersionAuditor versionAuditor) {
 		this.id = userId;
 		this.userRol = userRol;
 		this.userName = userName;
 		this.userPass = userPass;
+		this.versionAuditor = versionAuditor;
 	}
 
-	public User(long userId, UserRol userRol, String userName,
-			String userPass, String userMail, Date lastLoginTms) {
-		this.id = userId;
+	public User(UserRol userRol, String userName, String userPass,
+			String userMail, Date lastLoginTms, VersionAuditor versionAuditor) {
 		this.userRol = userRol;
 		this.userName = userName;
 		this.userPass = userPass;
 		this.userMail = userMail;
 		this.lastLoginTms = lastLoginTms;
+		this.versionAuditor = versionAuditor;
 	}
 
 	@Id
-	@SequenceGenerator(name="GEN_USER", sequenceName="SEQ_USER", initialValue=1, allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GEN_USER")
+	@SequenceGenerator(name = "GEN_USER", sequenceName = "SEQ_USER", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_USER")
 	@Column(name = "USER_ID", unique = true, nullable = false, length = 40)
 	public long getId() {
 		return this.id;
@@ -120,20 +122,20 @@ public class User implements VersionableAdapter {
 	public void setLastLoginTms(Date lastLoginTms) {
 		this.lastLoginTms = lastLoginTms;
 	}
-	
-	
+
 	public int getVersion() {
 		return version;
 	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
 	public VersionAuditor getAuditor() {
 		return versionAuditor;
 	}
