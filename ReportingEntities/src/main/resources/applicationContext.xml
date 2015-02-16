@@ -41,6 +41,18 @@
 	<bean id="fileColumDAO" class="com.dao.loader.FileColumDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="reportDataDAO" class="com.dao.reportingtool.ReportDataDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="loadFileDAO" class="com.dao.loader.LoadFileDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="loadRawDAO" class="com.dao.loader.LoadRawDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="loadRawDataDAO" class="com.dao.loader.LoadRawDataDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	
 	
 	
