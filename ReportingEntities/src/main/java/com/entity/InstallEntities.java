@@ -53,7 +53,7 @@ public class InstallEntities {
 		// companyDAO.create(company);
 		// companyDAO.create(company2);
 
-		// companyDAO.findAll();
+		companyDAO.findAll();
 
 		Company company = new Company();
 		company.setCompanyName("Santander Asset Manager");
