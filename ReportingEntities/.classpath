@@ -22,5 +22,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
+<<<<<<< Upstream, based on branch 'master' of https://github.com/ecalderonpinto/ReportingEntities.git
+=======
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+>>>>>>> 34902b6 aaa
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
