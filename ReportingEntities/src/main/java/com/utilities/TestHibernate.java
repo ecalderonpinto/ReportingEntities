@@ -37,6 +37,11 @@ public class TestHibernate {
 			
 			
 			InstallEntities installLoader = new InstallEntities();
+			
+			//installLoader.installTest(aplicationContext);
+			
+			installLoader.deleteEntities(aplicationContext);
+			
 			installLoader.installEntitiesFull(aplicationContext);
 			
 			

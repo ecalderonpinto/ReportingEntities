@@ -7,6 +7,8 @@ package com.dao;
 
 import java.util.List;
 
+import javax.swing.text.html.parser.Entity;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -38,6 +40,9 @@ public abstract class AbstractDAO<T> {
 	@Transactional
 	public void delete(T entity) {
 		getHibernateTemplate().delete(getHibernateTemplate().merge(entity));
+		
+		//getHibernateTemplate().flush();
+		System.out.println("Deleted");
 	}
 
 	// public T find(Object id) {
@@ -49,12 +54,28 @@ public abstract class AbstractDAO<T> {
 		return (List<T>) getHibernateTemplate().findByExample(entity);
 	}
 
+//	@Transactional
+//	public List<T> findAll() {
+//		return (List<T>) getHibernateTemplate().findByCriteria(
+//				DetachedCriteria.forClass(entityClass).add(
+//						Example.create(entityClass)));
+//	}
+	
 	@Transactional
 	public List<T> findAll() {
 		return (List<T>) getHibernateTemplate().findByCriteria(
-				DetachedCriteria.forClass(entityClass).add(
-						Example.create(entityClass)));
+				DetachedCriteria.forClass(entityClass));
 	}
+
+	
+	@Transactional
+	public void deleteAll() {
+		List<T> entities = findAll();
+		for(T entity : entities) {
+			delete(entity);
+		}
+	}
+	
 
 	// public List<T> findRange(int[] range) {
 	// javax.persistence.criteria.CriteriaQuery cq =

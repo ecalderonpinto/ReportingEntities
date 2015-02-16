@@ -35,6 +35,12 @@
 	<bean id="reportFieldListDAO" class="com.dao.reportingtool.ReportFieldListDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="fileConfigDAO" class="com.dao.loader.FileConfigDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="fileColumDAO" class="com.dao.loader.FileColumDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	
 	
 	
